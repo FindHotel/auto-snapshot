@@ -1,6 +1,6 @@
 # auto-snapshot
 
-Creating snapshots for selected EBS volumes in AWS
+Create snapshots for selected EBS volumes in AWS
 
 Any volume that implement the tags bellow its snapshot will be taken:
 ```

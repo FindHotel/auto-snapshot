@@ -1,6 +1,5 @@
 
 from unittest import TestCase, mock
-import boto3
 
 from auto_snapshot import get_next_version, notify, create_snapshot
 

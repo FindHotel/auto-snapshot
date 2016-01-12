@@ -1,39 +1,32 @@
 """Delete snapshots for selected EBS volumes in AWS
 
-This module includes the function for deleting any expired snapshot that implement the tags bellow:
-
-tag key                             tag value
----------------------------------------------------------------------------------------
-*Name                               <snapshot name>
-*auto:snapshots:expiration_date     <expiration_date>
-
-*mandatory tags
-
-Example tags:
-
-tag key                             tag value
----------------------------------------------------------------------------------------
-Name                               volume-for-autoSnapshot:1
-auto:snapshots:expiration_date     2016-01-22
-
 
 Module methods:
 
-    run:
-        Start the execution
+    remove_snapshots_handler:
+        Start iterate over the snapshots, remove the expired ones
 
 """
 
-
 import datetime
-import boto3
 import dateutil.parser
+
+import boto3
 
 from utils import convert_tags_list_to_dict
 
 
-def run(event, context):
-
+def remove_snapshots_handler(event, context):
+    """The entry point for the execution.
+        Starts the process of removing expired snapshots of volumes.
+        Can be triggered by different events in AWS.
+    :param event: event data
+    :type event: usually of the Python dict type.
+        It can also be list, str, int, float, or NoneType type.
+    :param context: AWS Lambda service uses this parameter to provide runtime information to the handler
+    :type context: LambdaContext
+    :return: None
+    """
     ec2 = boto3.resource('ec2', region_name='eu-west-1')
     today = datetime.datetime.now().date()
 
@@ -51,8 +44,6 @@ def run(event, context):
                   format(tags['Name'], snapshot.snapshot_id, expiration_date))
             snapshot.delete()
 
-    return event
-
 
 if __name__ == '__main__':
-    run({}, {})
+    remove_snapshots_handler({}, {})
