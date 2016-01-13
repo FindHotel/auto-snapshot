@@ -20,7 +20,7 @@ def get_current_snapshot(volume_id):
 
     :param volume_id: the id of the volume
     :type volume_id: str
-    :return: a dict describing the current snapshot
+    :return: a dict describing the current snapshot or none if the volume don't have any snapshots
     """
     ec = boto3.client('ec2')
     filters = [
@@ -28,7 +28,11 @@ def get_current_snapshot(volume_id):
         {'Name': 'tag-value', 'Values': ["true"]},
     ]
     snapshot_response = ec.describe_snapshots(Filters=filters)
-    snapshots = snapshot_response.get('Snapshots')
+    if not snapshot_response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        raise Exception("auto-snapshot error: HTTPStatusCode {}".
+                        format(snapshot_response['ResponseMetadata']['HTTPStatusCode']))
+
+    snapshots = snapshot_response['Snapshots']
 
     if len(snapshots) > 1:
         # Fail if there is more than one current backup so, need to be tracked via some SNS event
@@ -88,12 +92,16 @@ def create_snapshot(volume, service_resource):
     print("Creating a snapshot backup of volume: {} id: {} at: {}".
           format(volume_name, volume_id, now.isoformat()))
 
-    created_snapshot_description = service_resource.create_snapshot(
+    created_snapshot = service_resource.create_snapshot(
             VolumeId=volume.volume_id,
             Description="auto-snapshot backup of volumeId {} at {}".format(volume_id, now.isoformat()))
+    if not created_snapshot.meta.data['ResponseMetadata']['HTTPStatusCode'] == 200:
+        raise Exception("auto-snapshot error: HTTPStatusCode {}".
+                        format(created_snapshot.meta.data['ResponseMetadata']['HTTPStatusCode']))
+
     # add the tags for the new snapshot
     service_resource.create_tags(
-        Resources=(created_snapshot_description.snapshot_id,),
+        Resources=(created_snapshot.snapshot_id,),
         Tags=convert_tags_dict_to_list(snapshot_tags)
     )
     # update the tags for the previous snapshot
@@ -108,7 +116,7 @@ def create_snapshot(volume, service_resource):
         notify(topic)
 
     print("A snapshot backup of volume: {} is being created with id: {}, tags: {}".
-          format(volume_name, created_snapshot_description.snapshot_id, snapshot_tags))
+          format(volume_name, created_snapshot.snapshot_id, snapshot_tags))
 
 
 def notify(topic_name):
@@ -117,15 +125,21 @@ def notify(topic_name):
     :type topic_name: str
     """
     client = boto3.client('sns')
-    topic_object = client.create_topic(
+    topic_response = client.create_topic(
         Name=topic_name
     )
-    response = client.publish(
-        TopicArn=topic_object['TopicArn'],
+    if not topic_response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        raise Exception("auto-snapshot error: HTTPStatusCode {}".
+                        format(topic_response['ResponseMetadata']['HTTPStatusCode']))
+    publish_response = client.publish(
+        TopicArn=topic_response['TopicArn'],
         Message=topic_name,
         Subject=topic_name,
         MessageStructure='string'
     )
+    if not publish_response['ResponseMetadata']['HTTPStatusCode'] == 200:
+        raise Exception("auto-snapshot error: HTTPStatusCode {}".
+                        format(publish_response['ResponseMetadata']['HTTPStatusCode']))
 
 
 def create_snapshots_handler(event, context):

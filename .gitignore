@@ -2,3 +2,8 @@
 .idea
 .pyenv
 
+.cache/
+__pycache__/
+*.pyc
+
+.tox
