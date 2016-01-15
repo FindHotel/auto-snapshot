@@ -1,6 +1,4 @@
-"""
-Utils for working with AWS
-"""
+"""Utils for working with AWS"""
 
 
 def convert_tags_list_to_dict(tags_list):
