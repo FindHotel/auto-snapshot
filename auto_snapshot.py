@@ -25,7 +25,7 @@ def get_current_snapshot(volume_id):
     ec = boto3.client('ec2')
     filters = [
         {'Name': 'tag-key', 'Values': ["auto:snapshots:current:{}".format(volume_id)]},
-        {'Name': 'tag-value', 'Values': ["true"]},
+        {'Name': 'tag-value', 'Values': ['true']},
     ]
     snapshot_response = ec.describe_snapshots(Filters=filters)
     if not snapshot_response['ResponseMetadata']['HTTPStatusCode'] == 200:
@@ -86,7 +86,7 @@ def create_snapshot(volume, service_resource):
         'Name': "{}:{}".format(volume_name, str(version)),
         'auto:snapshots:expiration_date': expiration_date,
         'auto:snapshots:version': str(version),
-        "auto:snapshots:current:{}".format(volume_id): "true"
+        "auto:snapshots:current:{}".format(volume_id): 'true'
     }
 
     print("Creating a snapshot backup of volume: {} id: {} at: {}".

@@ -21,4 +21,3 @@ def convert_tags_dict_to_list(tags_dict):
         each one represent a tag
     """
     return [{'Key': tag[0], 'Value': tag[1]} for tag in tags_dict.items()]
-
