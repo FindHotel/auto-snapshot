@@ -4,6 +4,7 @@ env:
   matrix:
     - TOXENV=py27
     - TOXENV=py34
+    - TOXENV=py35
 
 # install only tox, tox will take care of installing the rest of the dependencies
 install:
