@@ -9,9 +9,12 @@ env:
 # install only tox, tox will take care of installing the rest of the dependencies
 install:
   - pip install tox
-
+  - pip install pytest-cov
 # run tests
-script: tox
+script:
+  - tox
+  - py.test --cov=auto_snapshot.py tests/
+  - py.test --cov=removal.py tests/
 
 notifications:
   email:
