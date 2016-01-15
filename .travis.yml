@@ -1,0 +1,18 @@
+
+language: python
+
+env:
+  matrix:
+    - TOXENV=py27
+    - TOXENV=py34
+
+# install only tox, tox will take care of installing the rest of the dependencies
+install:
+  - pip install tox
+
+# run tests
+script: tox
+
+notifications:
+  email:
+  - samuel@innovativetravel.eu
