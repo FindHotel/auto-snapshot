@@ -1,6 +1,7 @@
-# auto-snapshot
+## auto-snapshot
+[![Build Status](https://api.travis-ci.org/InnovativeTravel/auto-snapshot.svg)](https://travis-ci.org/InnovativeTravel/auto-snapshot/)
 
-Create snapshots for selected EBS volumes in AWS
+### Create snapshots for selected EBS volumes in AWS
 
 Any volume that implement the tags bellow its snapshot will be taken:
 ```
@@ -25,9 +26,11 @@ auto:snapshots:retention_days       15
 ```
 
 ### Usage:
-1. cd into the project folder:
-```cd auto-snapshot```
-2. zip all python files
-```zip auto-snapshot.zip *.py```
-3. upload the zip file to aws Lambda service
+Assuming aws cli is installed and set with the appropriate credentials
 
+1. clone the repo:
+```git clone https://github.com/InnovativeTravel/auto-snapshot```
+2. cd into the project folder:
+```cd auto-snapshot```
+3. deploy to aws lambda service:
+```make deploy```
