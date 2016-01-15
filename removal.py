@@ -39,7 +39,7 @@ def remove_snapshots_handler(event, context):
 
         tags = convert_tags_list_to_dict(snapshot.tags)
         expiration_date = dateutil.parser.parse(tags['auto:snapshots:expiration_date']).date()
-        if expiration_date == today:
+        if expiration_date <= today:
             print("Deleting snapshot {}, id: {}, expiration_date: {}".
                   format(tags['Name'], snapshot.snapshot_id, expiration_date))
             snapshot.delete()
