@@ -153,7 +153,8 @@ def create_snapshots_handler(event, context):
     :type context: LambdaContext
     :return: None
     """
-    ec2 = boto3.resource('ec2', region_name='eu-west-1')
+    boto3.setup_default_session(region_name='eu-west-1')
+    ec2 = boto3.resource('ec2')
     filters = [{'Name': 'tag-key', 'Values': ['auto:snapshots']}]
     volumes = list(ec2.volumes.filter(Filters=filters))
 
