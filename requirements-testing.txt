@@ -3,3 +3,4 @@
 mock
 pytest
 tox
+pytest-cov

@@ -9,7 +9,6 @@ env:
 # install only tox, tox will take care of installing the rest of the dependencies
 install:
   - pip install tox
-  - pip install pytest-cov
 # run tests
 script:
   - tox
