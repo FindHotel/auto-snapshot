@@ -14,7 +14,6 @@ install:
 script:
   - tox
   - py.test --cov=auto_snapshot.py tests/
-  - py.test --cov=removal.py tests/
 
 notifications:
   email:
