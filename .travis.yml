@@ -13,7 +13,6 @@ install:
 # run tests
 script:
   - tox
-  - py.test --cov=auto_snapshot.py tests/
 
 notifications:
   email:
