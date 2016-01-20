@@ -25,6 +25,32 @@ __Note__: if you don't know what [humilis][humilis] it, it is strongly
 recommended that you take a quick look at the [docs][humilis] before reading
 further.
 
+# How does it work?
+
+Once deployed in the AWS cloud, the system creates snapshots from every EBS
+volume that has the following tags:
+
+```
+tag key                             tag value
+-----------------------------------------------------------------------------------
+*Name                               <volume friendly name>
+*auto:snapshots                     <any value>
+auto:snapshot:topic                 <topic name for SNS event>
+auto:snapshots:retention_days       <number of days to keep the snapshot>
+```
+*mandatory tags
+
+
+## Example tags:
+
+```
+tag key                             tag value
+-----------------------------------------------------------------------------------
+Name                                my-super-important-volume
+auto:snapshots                      yes
+auto:snapshot:topic                 snapshot-was-created-for-my-super-important-volume
+auto:snapshots:retention_days       15
+```
 
 # Requirements
 
@@ -46,17 +72,14 @@ make develop
 . .env/bin/activate
 ```
 
-
-# Local test suite
-
-To run the test suite go to directory `lambda` and run:
+To run the test suite:
 
 ```
 make test
 ```
 
 
-# Deployment to AWS
+# Deployment
 
 You can make a test deployment to AWS using:
 
@@ -116,29 +139,3 @@ determines, e.g. which AWS credentials should be used for deployment), and
 environment running side by side (e.g. by deploying first to stage `DEV` and
 then to stage `PROD`).
 
-
-# How does it work?
-
-The system creates snapshots from every EBS volume that has the following tags:
-
-```
-tag key                             tag value
------------------------------------------------------------------------------------
-*Name                               <volume friendly name>
-*auto:snapshots                     <any value>
-auto:snapshot:topic                 <topic name for SNS event>
-auto:snapshots:retention_days       <number of days to keep the snapshot>
-```
-*mandatory tags
-
-
-## Example tags:
-
-```
-tag key                             tag value
------------------------------------------------------------------------------------
-Name                                my-super-important-volume
-auto:snapshots                      yes
-auto:snapshot:topic                 snapshot-was-created-for-my-super-important-volume
-auto:snapshots:retention_days       15
-```
