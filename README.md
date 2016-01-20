@@ -5,10 +5,6 @@ humilis-autosnapshot
 
 Creates scheduled snapshots of selected EBS volumes in the AWS cloud. 
 
-__Note__: if you don't know what [humilis][humilis] it, it is strongly
-recommended that you take a quick look at the [docs][humilis] before reading
-further.
-
 # How does it work?
 
 Once deployed in the AWS cloud, the system creates snapshots from every EBS
@@ -58,6 +54,10 @@ make test
 
 
 # Deployment
+
+__Note__: if you don't know what [humilis][humilis] it, it is strongly
+recommended that you take a quick look at the [docs][humilis] before reading
+further.
 
 First you will need to install and configure [humilis][humilis], if you 
 haven't do so already. Then you can make a test deployment to AWS using:
