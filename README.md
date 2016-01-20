@@ -52,10 +52,6 @@ auto:snapshot:topic                 snapshot-was-created-for-my-super-important-
 auto:snapshots:retention_days       15
 ```
 
-# Requirements
-
-You need to install and configure [humilis][humilis].
-
 
 # Development
 
@@ -79,7 +75,9 @@ make test
 
 # Deployment
 
-You can make a test deployment to AWS using:
+First you will need to install and configure [humilis][humilis], if you 
+haven't do so already. Then you can make a test deployment to AWS using:
+
 
 ```bash
 make create
