@@ -64,8 +64,6 @@ Assuming you have [virtualenv][venv] installed:
 [venv]: https://virtualenv.readthedocs.org/en/latest/
 
 ```
-# Go to the directory that contains the code of the two Lambda functions that 
-# take care of creating and deleting snapshots
 cd lambda
 make develop
 
