@@ -1,0 +1,6 @@
+---
+humilis-autosnapshot:
+    description:
+        A wrapper environment for testing the auto_snapshot layer
+    layers:
+        - {layer: autosnapshot}
