@@ -1,0 +1,42 @@
+---
+meta:
+    description:
+        Creates snapshots for selected EBS volumes in AWS
+    parameters:
+        # Best practice is to have here anything that you may ever want to
+        # "tune" in your resources. It's better than modifying the
+        # resources.json.j2 file.
+        timeout:
+            description:
+                The timeout to use for all Lambda functions, in seconds
+            value: 60
+        memory_size:
+            description:
+                The amount of memory allocated to the Lambda functions, in MB
+            value: 128
+        create_snapshot_code:
+            description:
+                The directory that contains the function that creates snapshots
+            value:
+                ref:
+                    parser: lambda
+                    parameters:
+                        path: lambda_function
+        create_snapshot_handler:
+            description:
+                The function that acts as a handler for snapshot creation
+            value:
+                auto_snapshot.create_snapshots_handler
+        delete_snapshot_code:
+            description:
+                The directory containing the function that deletes expired snapshots
+            value:
+                ref:
+                    parser: lambda
+                    parameters:
+                        path: lambda_function
+        delete_snapshot_handler:
+            description:
+                The function that acts as a handler for snapshot deletion
+            value:
+                removal.remove_snapshots_handler

@@ -1,0 +1,7 @@
+outputs:
+    CustomResourceFunctionArn:
+        Description: The ARN of the Lambda function backing the custom NAT resource
+        Value:
+            "Fn::GetAtt": 
+                - CustomResourceFunction
+                - Arn
