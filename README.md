@@ -11,7 +11,7 @@ environment by adding this repository as a [subtree][git-subtrees] in the
 `layers` directory. I recommend you use [stree][stree] for this:
 
 [humilis]: https://github.com/InnovativeTravel/humilis/blob/master/README.md
-[subtree]: https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.8w3u599dv
+[git-subtrees]: https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.8w3u599dv
 [stree]: https://github.com/deliciousinsights/git-stree
 
 ```
@@ -20,6 +20,10 @@ environment by adding this repository as a [subtree][git-subtrees] in the
 git stree add autosnapshot -P layers/autosnapshot \
     git://github.com/Innovativetravel/auto-snapshot.git
 ```
+
+__Note__: if you don't know what [humilis][humilis] it, it is strongly
+recommended that you take a quick look at the [docs][humilis] before reading
+further.
 
 
 # Requirements
@@ -54,7 +58,7 @@ make test
 
 # Deployment to AWS
 
-You can then make a test deployment to AWS using:
+You can make a test deployment to AWS using:
 
 ```bash
 make create
