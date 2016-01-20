@@ -21,7 +21,7 @@ meta:
                 ref:
                     parser: lambda
                     parameters:
-                        path: lambda_function
+                        path: lambda
         create_snapshot_handler:
             description:
                 The function that acts as a handler for snapshot creation
@@ -34,7 +34,7 @@ meta:
                 ref:
                     parser: lambda
                     parameters:
-                        path: lambda_function
+                        path: lambda
         delete_snapshot_handler:
             description:
                 The function that acts as a handler for snapshot deletion
