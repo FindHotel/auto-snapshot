@@ -5,22 +5,6 @@ humilis-autosnapshot
 
 Creates scheduled snapshots of selected EBS volumes in the AWS cloud. 
 
-This repository contains a [humilis][humilis] layer that deploys all the 
-required AWS resources. You can easily include this layer into your own humilis
-environment by adding this repository as a [subtree][git-subtrees] in the
-`layers` directory. I recommend you use [stree][stree] for this:
-
-[humilis]: https://github.com/InnovativeTravel/humilis/blob/master/README.md
-[git-subtrees]: https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.8w3u599dv
-[stree]: https://github.com/deliciousinsights/git-stree
-
-```
-# Assume you are in the root directory of your environment, i.e. where the
-# environment definition file is located.
-git stree add autosnapshot -P layers/autosnapshot \
-    git://github.com/Innovativetravel/auto-snapshot.git
-```
-
 __Note__: if you don't know what [humilis][humilis] it, it is strongly
 recommended that you take a quick look at the [docs][humilis] before reading
 further.
@@ -122,8 +106,26 @@ This means that your environment directory tree may look something like this:
 └── myenvironment.yaml
 ```
 
-So you would deploy the snapshot layer as part of the deployment of your
-environment, by running a command similar to this one:
+where the `layers/autosnapshots` directory has the same contents as this
+repository. The best approach to do this is to add this repository as a
+[subtree][git-subtrees] of your environment repository. I recommend you use
+[stree][stree] to manage git subtrees:
+
+[humilis]: https://github.com/InnovativeTravel/humilis/blob/master/README.md
+[git-subtrees]: https://medium.com/@porteneuve/mastering-git-subtrees-943d29a798ec#.8w3u599dv
+[stree]: https://github.com/deliciousinsights/git-stree
+
+```
+# Assume you are in the root directory of your environment, i.e. where the
+# environment definition file is located.
+git stree add autosnapshot -P layers/autosnapshot \
+    git://github.com/Innovativetravel/auto-snapshot.git
+```
+
+
+Once the autosnapshot subtree has been added to your environment repository, 
+you would deploy the snapshot layer as part of the deployment of your whole
+environment. E.g. by running a command similar to this one:
 
 ```
 humilis --profile [profile] create --stage [stage] myenvironment.yaml
