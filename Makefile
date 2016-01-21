@@ -1,6 +1,6 @@
 # make humilis look for the autosnapshot layer in this directory
 develop:
-	ln -fs `pwd` layers/autosnapshot
+	ln -fs ../ layers/autosnapshot
 
 # deploy the autosnapshot layer to the AWS cloud using cloudformation
 create:
