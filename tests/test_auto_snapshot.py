@@ -1,4 +1,14 @@
 """auto-snapshot tests creating a snapshot."""
+
+import inspect
+import os
+import sys
+lambda_dir = os.path.join(
+    os.path.dirname(inspect.getfile(inspect.currentframe())),
+    '..',
+    'lambda')
+sys.path.append(lambda_dir)
+
 try:
     from unittest import mock
 except ImportError:
