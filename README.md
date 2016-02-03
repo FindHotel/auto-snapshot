@@ -40,7 +40,6 @@ Assuming you have [virtualenv][venv] installed:
 [venv]: https://virtualenv.readthedocs.org/en/latest/
 
 ```
-cd lambda
 make develop
 
 . .env/bin/activate
@@ -49,7 +48,7 @@ make develop
 To run the test suite:
 
 ```
-make test
+tox
 ```
 
 
