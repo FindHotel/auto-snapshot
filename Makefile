@@ -1,6 +1,21 @@
+# create virtual environment
+.env:
+	virtualenv .env -p python2.7
+
 # make humilis look for the autosnapshot layer in this directory
-develop:
+develop: .env
+	.env/bin/pip install -r requirements-dev.txt
+	mkdir -p layers
 	ln -fs ../ layers/autosnapshot
+
+# run test suite
+test:
+	.env/bin/tox
+
+# remove virtualenv and layers dir
+clean:
+	rm -rf .env
+	rm -rf layers
 
 # deploy the autosnapshot layer to the AWS cloud using cloudformation
 create:
