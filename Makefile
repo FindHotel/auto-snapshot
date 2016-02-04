@@ -2,7 +2,7 @@
 .env:
 	virtualenv .env -p python2.7
 
-# make humilis look for the autosnapshot layer in this directory
+# install dev requirements, and set up layer directory
 develop: .env
 	.env/bin/pip install -r requirements-dev.txt
 	mkdir -p layers
