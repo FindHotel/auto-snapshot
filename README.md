@@ -5,6 +5,11 @@ humilis-autosnapshot
 
 Creates scheduled snapshots of selected EBS volumes in the AWS cloud. 
 
+__NOTE:__ This repo has been deprecated by the more comprehensive
+[EBS snapshot scheduler][ebsscheduler] supported by AWS.
+
+[ebsscheduler]: https://aws.amazon.com/answers/infrastructure-management/ebs-snapshot-scheduler/
+
 # How does it work?
 
 Once deployed in the AWS cloud, the system creates snapshots from every EBS
